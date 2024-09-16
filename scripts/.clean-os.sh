@@ -109,6 +109,8 @@ rm -fr /etc/apt/preferences.d/firefox*
 /bin/systemctl disable systemd-timesyncd
 /bin/systemctl disable unattended-upgrades
 /bin/systemctl disable udisks2.service
+/bin/rm -fr /etc/resolv.conf
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
 
 df -Th
 exit
