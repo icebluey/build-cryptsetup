@@ -3,8 +3,8 @@ export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 TZ='UTC'; export TZ
 umask 022
 apt update -y -qqq
-rm -fr /etc/resolv.conf
-echo "nameserver 8.8.8.8" >/etc/resolv.conf 
+/bin/rm -fr /etc/resolv.conf
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
 apt install -y chrony
 systemctl stop chrony.service
 sed -e "/^pool/d" -i /etc/chrony/chrony.conf
