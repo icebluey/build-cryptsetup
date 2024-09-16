@@ -8,7 +8,7 @@ sleep 5
 docker run --cpus="2.0" --rm --name ub2204 -itd ubuntu:22.04 bash
 sleep 2
 docker exec ub2204 apt update -y
-docker exec ub2204 apt upgrade -fy
+#docker exec ub2204 apt upgrade -fy
 docker exec ub2204 apt install -y bash vim wget ca-certificates curl
 docker exec ub2204 /bin/ln -svf bash /bin/sh
 docker exec ub2204 /bin/bash -c '/bin/rm -fr /tmp/*'
