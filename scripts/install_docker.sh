@@ -9,6 +9,8 @@ systemctl stop containerd.service >/dev/null 2>&1 || :
 systemctl disable docker.service >/dev/null 2>&1 || :
 systemctl disable docker.socket >/dev/null 2>&1 || :
 systemctl disable containerd.service >/dev/null 2>&1 || :
+/bin/rm -fr /root/.docker
+/bin/rm -fr ~/.docker
 set -e
 _tmp_dir="$(mktemp -d)"
 cd "${_tmp_dir}"
