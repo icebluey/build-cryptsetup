@@ -168,11 +168,11 @@ _build_cryptsetup() {
     --sysconfdir=/etc \
     --enable-libargon2 \
     --with-plain-hash=sha512 \
-    --with-plain-keybits=512 \
+    --with-plain-keybits=5120 \
     --with-luks1-hash=sha512 \
-    --with-luks1-keybits=512 \
-    --with-luks2-keyslot-keybits=512 \
-    --with-loopaes-keybits=512 \
+    --with-luks1-keybits=5120 \
+    --with-luks2-keyslot-keybits=5120 \
+    --with-loopaes-keybits=5120 \
     --with-verity-hash=sha512 \
     --with-passphrase-size-max=1024 \
     --with-keyfile-size-maxkb=16384 \
