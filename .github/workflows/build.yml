@@ -20,16 +20,15 @@ jobs:
           sudo apt upgrade -y -qqq;
           sudo /bin/bash scripts/install-docker.sh
 
-      - name: Create output dir
-        run: |
-          /bin/rm -fr /tmp/_output_assets
-          mkdir /tmp/_output_assets
-
       - name: Build cryptsetup ub2204
         run: |
           sudo /bin/bash run-build-ub2204.sh
           sudo /bin/systemctl stop docker.socket docker.service containerd.service
           sudo /bin/rm -fr /var/lib/docker/* /var/lib/containerd/* /mnt/docker-data/*
+
+      - name: Generate release tag env
+        run: |
+          echo "_dateutc=$(date -u +%Y-%m-%d-%H%M)" >> $GITHUB_ENV
 
       - name: Upload files
         uses: softprops/action-gh-release@v2
