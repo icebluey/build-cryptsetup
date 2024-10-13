@@ -16,8 +16,7 @@ docker cp ub2204 ub2204:/home/
 docker exec ub2204 /bin/bash /home/ub2204/.preinstall_ub2204
 docker exec ub2204 /bin/bash /home/ub2204/build-cryptsetup.sh
 _cryptsetup_ver="$(docker exec ub2204 ls -1 /tmp/ | grep -i '^cryptsetup.*xz$' | sed -e 's|cryptsetup-||g' -e 's|-[0-1]_.*||g')"
-rm -fr /home/.tmp.cryptsetup
-mkdir /home/.tmp.cryptsetup
-docker cp ub2204:/tmp/cryptsetup-"${_cryptsetup_ver}"-1_ub2204_amd64.tar.xz /home/.tmp.cryptsetup/
-docker cp ub2204:/tmp/cryptsetup-"${_cryptsetup_ver}"-1_ub2204_amd64.tar.xz.sha256 /home/.tmp.cryptsetup/
+mkdir -p /tmp/_output_assets
+docker cp ub2204:/tmp/cryptsetup-"${_cryptsetup_ver}"-1_ub2204_amd64.tar.xz /tmp/_output_assets/
+docker cp ub2204:/tmp/cryptsetup-"${_cryptsetup_ver}"-1_ub2204_amd64.tar.xz.sha256 /tmp/_output_assets/
 exit
