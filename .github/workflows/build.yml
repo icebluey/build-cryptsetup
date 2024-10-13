@@ -20,17 +20,23 @@ jobs:
           sudo apt upgrade -y -qqq;
           sudo /bin/bash scripts/install-docker.sh
 
+      - name: Create output dir
+        run: |
+          /bin/rm -fr /tmp/_output_assets
+          mkdir /tmp/_output_assets
+
       - name: Build cryptsetup ub2204
         run: |
           sudo /bin/bash run-build-ub2204.sh
           sudo /bin/systemctl stop docker.socket docker.service containerd.service
-          sudo /bin/rm -fr /var/lib/docker/* /var/lib/containerd/*
-      - name: Upload cryptsetup ub2204
+          sudo /bin/rm -fr /var/lib/docker/* /var/lib/containerd/* /mnt/docker-data/*
+
+      - name: Upload files
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env._dateutc }}
+          files: /tmp/_output_assets/*
+
+      - name: Delete old release tag env
         run: |
-          _dateutc=$(date -u +%Y-%m-%d)
-          _repo="$(echo ${{ github.repository }} | awk -F '/' '{print $2}')"
-          _cryptsetup_ver="$(sudo ls -1 /home/.tmp.cryptsetup/cryptsetup-* | sed -e 's|.*cryptsetup-||g' -e 's|-.*||g' | tail -n1)"
-          sudo /bin/ls -lah /home/.tmp.cryptsetup/
-          sudo /bin/ls -1 /home/.tmp.cryptsetup/cryptsetup-* 2>/dev/null | xargs --no-run-if-empty -I '{}' sudo /bin/bash scripts/.upload_file_to_github-release.sh --token ${{ secrets.GITHUB_TOKEN }} --user "${{ github.repository_owner }}" --repo "${_repo}" --file "{}" --tag "v${_dateutc}"
-          sleep 2
-          sudo /bin/rm -fr /home/.tmp.cryptsetup
+          sed -e "/^_dateutc=/d" -i $GITHUB_ENV
