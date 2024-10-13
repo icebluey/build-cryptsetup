@@ -314,9 +314,11 @@ _build_cryptsetup() {
 
 ############################################################################
 
-rm -fr /usr/lib/x86_64-linux-gnu/cryptsetup/private
+rm -fr /usr/lib/x86_64-linux-gnu/cryptsetup
 
 _build_zlib
+_build_brotli
+_build_zstd
 _build_openssl33
 _build_cryptsetup
 
